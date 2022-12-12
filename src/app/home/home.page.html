@@ -1,0 +1,179 @@
+
+   <!--menu button-->
+   <ion-header class="ion-no-border" [translucent]="true">
+    <ion-toolbar >
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> Hi, Admin </ion-title>
+      <ion-buttons slot="end">
+        <ion-button color="primary" (click)="gotoProfile()">
+          <ion-icon name="person"></ion-icon>
+        </ion-button>
+        <ion-button color="primary" (click)="gotoProfile()">
+          <ion-icon name="notifications"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+
+<!--Capacitor Google Map-->
+
+<ion-content [fullscreen]="true">
+
+  <ion-segment value="default" [(ngModel)]="segmentModel">
+    <ion-segment-button value="default">
+      <ion-label>Statistics</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment">
+      <ion-label>Live Map</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+ 
+  <ion-list lines="none" *ngIf="segmentModel === 'default'">
+
+    <!-- <ion-card class="ion-padding" color="danger">
+       <ion-label>
+        <h1>New Driver Request</h1>
+        <p>You have drivers waiting for approval.</p>
+      </ion-label>
+       <ion-icon name="arrow-forward"></ion-icon>
+    </ion-card> -->
+    <!-- <ion-grid> -->
+      <ion-row>
+
+        <ion-col>
+          <ion-card color="primary">
+      
+            <ion-card-header>
+              <img alt="Silhouette of mountains" src="https://cdn3d.iconscout.com/3d/premium/thumb/money-3597246-3010226.png" />
+              <ion-card-title><strong>Earnings</strong></ion-card-title>
+                <ion-grid>
+                  <ion-row>
+                    <!-- <ion-col>
+                      <ion-card-title>Daily<h1>${{earnings||0}}</h1></ion-card-title>
+                    </ion-col>
+                    <ion-col>
+                      <ion-card-title>Weekly<h1>${{earnings||0}}</h1></ion-card-title>
+                    </ion-col>
+                    <ion-col>
+                      <ion-card-title>Monthly<h1>${{earnings||0}}</h1></ion-card-title>
+                    </ion-col> -->
+                    <ion-col>
+                      <ion-card-title>Total<h1>${{earnings||0}}</h1></ion-card-title>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+            </ion-card-header>
+      
+      
+      
+          </ion-card>
+        </ion-col>
+
+        <ion-col>
+    <ion-card color="primary">
+
+      <ion-card-header>
+        <img alt="Silhouette of mountains" src="https://cdn3d.iconscout.com/3d/premium/thumb/driver-5266579-4403853.png" />
+        <ion-card-title><strong>Drivers</strong></ion-card-title>
+        <ion-grid>
+          <ion-row>
+            <!-- <ion-col>
+              <ion-card-title>Daily<h1>{{numDrivers||0}}</h1></ion-card-title>
+            </ion-col>
+            <ion-col>
+              <ion-card-title>Weekly<h1>{{numDrivers||0}}</h1></ion-card-title>
+            </ion-col>
+            <ion-col>
+              <ion-card-title>Monthly<h1>{{numDrivers||0}}</h1></ion-card-title>
+            </ion-col> -->
+            <ion-col>
+              <ion-card-title>Total<h1>{{numDrivers||0}}</h1></ion-card-title>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+
+
+
+    </ion-card>
+  </ion-col>
+
+  <ion-col>
+    <ion-card color="primary">
+      <img alt="Silhouette of mountains" src="https://cdn3d.iconscout.com/3d/premium/thumb/woman-4722985-3930451.png" />
+      <ion-card-header>
+        <ion-card-title><strong>Riders</strong></ion-card-title>
+        <ion-grid>
+          <ion-row>
+            <!-- <ion-col>
+              <ion-card-title>Daily<h1>{{numRiders || 0}}</h1></ion-card-title>
+            </ion-col>
+            <ion-col>
+              <ion-card-title>Weekly<h1>{{numRiders || 0}}</h1></ion-card-title>
+            </ion-col>
+            <ion-col>
+              <ion-card-title>Monthly<h1>{{numRiders || 0}}</h1></ion-card-title>
+            </ion-col> -->
+            <ion-col>
+              <ion-card-title>Total<h1>{{numRiders || 0}}</h1></ion-card-title>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+
+    </ion-card>
+  </ion-col>
+
+
+  <ion-col>
+    <ion-card color="primary">
+      <img alt="Silhouette of mountains" src="https://cdn3d.iconscout.com/3d/premium/thumb/travel-luggage-5694786-4789123.png" />
+      <ion-card-header>
+        <ion-card-title><strong>Trips</strong></ion-card-title>
+        <ion-grid>
+          <ion-row>
+            <!-- <ion-col>
+              <ion-card-title>Daily<h1>{{numRiders || 0}}</h1></ion-card-title>
+            </ion-col>
+            <ion-col>
+              <ion-card-title>Weekly<h1>{{numRiders || 0}}</h1></ion-card-title>
+            </ion-col>
+            <ion-col>
+              <ion-card-title>Monthly<h1>{{numRiders || 0}}</h1></ion-card-title>
+            </ion-col> -->
+            <ion-col>
+              <ion-card-title>Total<h1>{{numRiders || 0}}</h1></ion-card-title>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+
+    </ion-card>
+  </ion-col>
+
+  </ion-row>
+  <!-- </ion-grid> -->
+  </ion-list>
+
+  <ion-list  [hidden]="segmentModel === 'default'">
+    <capacitor-google-maps #map >
+     
+    </capacitor-google-maps>
+  </ion-list>
+  
+
+</ion-content >
+
+
+
+
+  <ion-footer [translucent]="true" class="ion-no-border">
+
+    <!--location Button-->
+  
+
+    
+  </ion-footer>

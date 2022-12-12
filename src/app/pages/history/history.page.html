@@ -1,0 +1,174 @@
+
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary"></ion-menu-button>
+      </ion-buttons>
+    </ion-buttons>
+   
+    <ion-title> Trips </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-segment value="default" [(ngModel)]="segmentModel">
+    <ion-segment-button value="default">
+      <ion-label>Completed</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment">
+      <ion-label>Cancelled</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="hasNoData">
+  <ion-img src="../assets/imgs/empty.svg"></ion-img>
+
+  <ion-list-header style="margin-top: 10%">
+    <ion-label color="primary" class="ion-text-center">
+      <h1>No Data</h1>
+      <p>Book a ride to see Trips</p></ion-label>
+  </ion-list-header>
+  </div>
+
+  <div *ngIf="hideSkeleton">
+    <ion-grid  class="ion-margin">
+      <ion-row>
+        <ion-col><ion-skeleton-text [animated]="true" style="width: auto; height: 400px;"></ion-skeleton-text></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+<div *ngIf="!hideSkeleton">
+<ion-card color='primary' class="ion-padding" *ngIf="segmentModel === 'default'">
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="records" matSort class="mat-elevation-z8">
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Driver Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Driver Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Rider Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Rider Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Rider Phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Rider phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+     <!-- Column -->
+     <ng-container matColumnDef="Pickup">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Pickup </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="DropOff">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> DropOff </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+      <!-- Column -->
+      <ng-container matColumnDef="Price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>
+    <tr mat-row *matRowDef="let row;  columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+  </mat-paginator>
+</ion-card>
+
+
+
+<ion-card color='primary' class="ion-padding" *ngIf="segmentModel === 'segment'">
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter2($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="records2" matSort class="mat-elevation-z8">
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Driver Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.drivername}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Driver Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.driverphone}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Rider Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Rider Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.ridername}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Rider Phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Rider phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.riderphone}} </td>
+    </ng-container>
+
+     <!-- Column -->
+     <ng-container matColumnDef="Pickup">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Pickup </th>
+      <td mat-cell *matCellDef="let element"> {{element.pickup}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="DropOff">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> DropOff </th>
+      <td mat-cell *matCellDef="let element"> {{element.dropoff}} </td>
+    </ng-container>
+
+      <!-- Column -->
+      <ng-container matColumnDef="Price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Reason">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+        <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true;"></tr>
+    <tr mat-row *matRowDef="let row;  columns: displayedColumns2;"></tr>
+  </table>
+
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+  </mat-paginator>
+</ion-card>
+
+</div>
+</ion-content>
+
+
+<ion-footer>
+   
+</ion-footer>

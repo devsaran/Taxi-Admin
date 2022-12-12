@@ -1,0 +1,63 @@
+
+.message {
+  padding: 10px !important;
+  border-radius: 10px !important;
+  margin-bottom: 4px !important;
+  white-space: pre-wrap;
+  
+}
+
+
+
+.my-message {
+  background: var(--ion-color-tertiary);
+  color: #fff;
+  animation-name: slide-top;
+  animation-duration: 0.5s;
+}
+
+
+.time {
+  color: #dfdfdf;
+  float: right;
+  font-size: small;
+}
+table {
+  width: 100%;
+  background: none;
+  box-shadow: none;
+  font-size: large;
+  font-family: 'Lato';  //This is what we are going to call  
+}
+
+
+.mat-cell {
+  width: 40%;
+  border-radius: 50px;
+  background: none;
+  box-shadow: none;
+}
+
+.mat-column-gender {
+  width: 20%;
+  background: none;
+  box-shadow: none;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+  background: none;
+  box-shadow: none;
+}
+
+mat-paginator{
+  background: none;
+  box-shadow: none;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+ // border-radius: 30px;
+ // border: 1px solid white;
+}

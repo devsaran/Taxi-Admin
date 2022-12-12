@@ -1,0 +1,112 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon> 
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title *ngIf="!info"> Create Price </ion-title>
+    <ion-title *ngIf="info"> Edit Price </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="!info">
+  
+  <ion-item-group class="ion-margin-horizontal">
+    <form [formGroup]="form">
+
+      <div id="sign-in-button"></div>
+
+      <div class="ion-margin-vertical">
+
+        <ion-item>
+          <ion-input 
+            formControlName="email" 
+            placeholder="Name" 
+            type="text"
+            clearInput
+            minlength="1"
+            maxlength="50">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input 
+            formControlName="address" 
+            placeholder="Amount" 
+            type="text"
+            clearInput
+            minlength="1"
+            maxlength="100">
+          </ion-input>
+        </ion-item>
+        
+      </div>
+    </form>
+
+   
+  </ion-item-group>
+
+
+ 
+</ion-content>
+
+
+<ion-content *ngIf="info">
+  <ion-item-group class="ion-margin-horizontal">
+    <form [formGroup]="form">
+
+      <div id="sign-in-button"></div>
+
+      <div class="ion-margin-vertical">
+
+        <ion-item>
+          <ion-input 
+            formControlName="email" 
+            placeholder="{{info.name}}" 
+            type="text"
+            clearInput
+            minlength="1"
+            maxlength="50">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input 
+            formControlName="address" 
+            placeholder="{{info.amount}}" 
+            type="text"
+            clearInput
+            minlength="1"
+            maxlength="100">
+          </ion-input>
+        </ion-item>
+      </div>
+    </form>
+
+
+   
+  </ion-item-group>
+
+
+ 
+</ion-content>
+
+
+
+<ion-footer>
+
+              <ion-button  *ngIf="!info" size="large" shape="round" color="primary" expand='block' (click)="processNow()">
+                  <ion-icon  slot="icon-only" name="create"></ion-icon> 
+                  Create
+              </ion-button>
+
+              <ion-button  *ngIf="info" size="large" shape="round" color="primary" expand='block' (click)="EditNow()">
+                <ion-icon  slot="icon-only" name="checkmark-sharp"></ion-icon> 
+                Done
+            </ion-button>
+         
+
+</ion-footer>

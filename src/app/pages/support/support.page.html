@@ -1,0 +1,89 @@
+
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary"></ion-menu-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title> Support </ion-title>
+   
+  </ion-toolbar>
+ 
+</ion-header>
+ 
+<ion-content class="ion-padding">
+
+  <div *ngIf="hasNoData">
+  <ion-img src="../assets/imgs/empty.svg"></ion-img>
+
+  <ion-list-header style="margin-top: 10%">
+    <ion-label color="primary" class="ion-text-center">
+      No Data
+      </ion-label>
+  </ion-list-header>
+  </div>
+
+<div *ngIf="hideSkeleton">
+  <ion-grid  class="ion-margin">
+    <ion-row>
+      <ion-col><ion-skeleton-text [animated]="true" style="width: auto; height: 400px;"></ion-skeleton-text></ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+
+<div *ngIf="!hideSkeleton">
+<ion-card color="primary" class="ion-padding">
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="records" matSort class="mat-elevation-z8">
+
+    <!-- Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+       <!-- Column -->
+       <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+          <ng-container matColumnDef="Chat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Chat </th>
+            <td mat-cell *matCellDef="let element"> 
+              <ion-button color="primary" (click)="gotoDocs(element)"> 
+              <ion-icon name="chatbubble-ellipses"></ion-icon> 
+              <ion-badge *ngIf="element.new" color="danger">new</ion-badge>
+              </ion-button>
+            </td>
+          </ng-container>
+  
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>
+    <tr mat-row *matRowDef="let row;  columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+  </mat-paginator>
+</ion-card>
+
+
+</div>
+</ion-content>
+
+
+<ion-footer>
+   
+</ion-footer>

@@ -1,0 +1,234 @@
+
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary"></ion-menu-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title> Drivers </ion-title>
+   
+  </ion-toolbar>
+ 
+</ion-header>
+ 
+<ion-content class="ion-padding">
+
+  <ion-segment value="default" [(ngModel)]="segmentModel">
+    <ion-segment-button value="default">
+      <ion-label>Approved</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment">
+      <ion-label>Pending</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="hasNoData">
+  <ion-img src="../assets/imgs/empty.svg"></ion-img>
+
+  <ion-list-header style="margin-top: 10%">
+    <ion-label color="primary" class="ion-text-center">
+      <h1>No Data</h1>
+      </ion-label>
+  </ion-list-header>
+  </div>
+
+<div *ngIf="hideSkeleton">
+  <ion-grid  class="ion-margin">
+    <ion-row>
+      <ion-col><ion-skeleton-text [animated]="true" style="width: auto; height: 400px;"></ion-skeleton-text></ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+
+<div *ngIf="!hideSkeleton">
+<ion-card color="primary" class="ion-padding" *ngIf="segmentModel === 'default'">
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="records" matSort class="mat-elevation-z8">
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_name}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_phone}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Car">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Car </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_car}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver CarType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  CarType </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_cartype}} </td>
+    </ng-container>
+
+     <!-- Column -->
+     <ng-container matColumnDef="Driver Email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_email}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Plate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Plate </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_plate}} </td>
+    </ng-container>
+
+      <!-- Column -->
+      <ng-container matColumnDef="Driver Rating">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
+        <td mat-cell *matCellDef="let element"> {{element.Driver_rating}} </td>
+      </ng-container>
+
+      <!-- Column -->
+      <ng-container matColumnDef="Driver Earnings">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Earnings </th>
+        <td mat-cell *matCellDef="let element"> {{element.Earnings}} </td>
+      </ng-container>
+
+       <!-- Column -->
+       <ng-container matColumnDef="Driver Latitude">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Latitude </th>
+        <td mat-cell *matCellDef="let element"> {{element.Driver_lat}} </td>
+      </ng-container>
+
+
+        <!-- Column -->
+        <ng-container matColumnDef="Driver Longitude">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Longitude </th>
+          <td mat-cell *matCellDef="let element"> {{element.Driver_lng}} </td>
+        </ng-container>
+
+          <!-- Column -->
+          <ng-container matColumnDef="Driver Image">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
+            <td mat-cell *matCellDef="let element"> <img src="{{element.Driver_imgUrl}}"/> </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Documents">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Documents </th>
+            <td mat-cell *matCellDef="let element"> 
+              <ion-button color="primary" (click)="gotoDocs(element)"> 
+              <ion-icon name="clipboard"></ion-icon> 
+              </ion-button>
+            </td>
+          </ng-container>
+  
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>
+    <tr mat-row *matRowDef="let row;  columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+  </mat-paginator>
+</ion-card>
+
+
+
+<ion-card  color="primary" class="ion-padding" *ngIf="segmentModel === 'segment'">
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter2($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="records2" matSort class="mat-elevation-z8">
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_name}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_phone}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Car">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Car </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_car}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver CarType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  CarType </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_cartype}} </td>
+    </ng-container>
+
+     <!-- Column -->
+     <ng-container matColumnDef="Driver Email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_email}} </td>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="Driver Plate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Plate </th>
+      <td mat-cell *matCellDef="let element"> {{element.Driver_plate}} </td>
+    </ng-container>
+
+
+         <!-- Column -->
+         <!-- Column -->
+         <ng-container matColumnDef="Driver Image">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
+          <td mat-cell *matCellDef="let element"> <img src="{{element.Driver_imgUrl}}"/> </td>
+        </ng-container>
+
+         <!-- Column -->
+    <ng-container matColumnDef="Documents">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Documents </th>
+      <td mat-cell *matCellDef="let element"> 
+        <ion-button color="primary" (click)="gotoDocs(element)"> 
+        <ion-icon name="clipboard"></ion-icon> 
+        </ion-button>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Accept">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Accept </th>
+      <td mat-cell *matCellDef="let element"> 
+        <ion-button color="success" (click)="Approve(element)"> 
+        <ion-icon name="checkmark-sharp"></ion-icon> 
+        </ion-button>
+      </td>
+    </ng-container>
+  
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true;"></tr>
+    <tr mat-row *matRowDef="let row;  columns: displayedColumns2;"></tr>
+  </table>
+
+
+
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+  </mat-paginator>
+</ion-card>
+
+</div>
+</ion-content>
+
+
+<ion-footer>
+  <ion-fab vertical="bottom" horizontal="start" (click)="AddDriver()">
+    <ion-fab-button size="large" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-footer>
